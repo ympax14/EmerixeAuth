@@ -25,9 +25,7 @@ public class PlayerConfig {
     }
 
     config = YamlConfiguration.loadConfiguration(configFile);
-    config.addDefault("password", null);
-    config.addDefault("premium", isPremium);
-    config.addDefault("recoverykey", null);
+    setString("premium", isPremium);
     save();
   }
 
