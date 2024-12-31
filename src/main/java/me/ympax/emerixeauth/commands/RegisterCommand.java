@@ -23,9 +23,9 @@ public class RegisterCommand extends Command {
             CraftPlayer craftPlayer = (CraftPlayer) player;
             AuthPlayer authPlayer = EmerixeAuth.getInstance().getAuthPlayer(craftPlayer);
 
-            if (authPlayer.getAuthState() == AuthState.Logged) {
+            if (authPlayer.getAuthState().getId() == AuthState.Logged.getId()) {
                 player.sendMessage(ChatColor.RED + "Vous êtes déjà connecté(e).");
-            } else if (authPlayer.getAuthState() == AuthState.LoggingIn) {
+            } else if (authPlayer.getAuthState().getId() == AuthState.LoggingIn.getId()) {
                 player.sendMessage(ChatColor.RED + "Vous êtes déjà enregistré(e).");
             } else {
                 if (args.length != 2) {

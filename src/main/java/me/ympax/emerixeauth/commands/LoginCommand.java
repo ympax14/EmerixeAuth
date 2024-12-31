@@ -23,9 +23,9 @@ public class LoginCommand extends Command {
             CraftPlayer craftPlayer = (CraftPlayer) player;
             AuthPlayer authPlayer = EmerixeAuth.getInstance().getAuthPlayer(craftPlayer);
 
-            if (authPlayer.getAuthState() == AuthState.Logged) {
+            if (authPlayer.getAuthState().getId() == AuthState.Logged.getId()) {
                 player.sendMessage("Vous êtes déjà connecté(e).");
-            } else if (authPlayer.getAuthState() == AuthState.LoggingIn) {
+            } else if (authPlayer.getAuthState().getId() == AuthState.LoggingIn.getId()) {
                 if (args.length != 1) {
                     player.sendMessage(this.usageMessage);
                     return false;

@@ -23,7 +23,7 @@ public class ResetPasswordCommand extends Command {
             CraftPlayer craftPlayer = (CraftPlayer) player;
             AuthPlayer authPlayer = EmerixeAuth.getInstance().getAuthPlayer(craftPlayer);
 
-            if (authPlayer.getAuthState() == AuthState.Logged || authPlayer.getAuthState() == AuthState.LoggingIn) {
+            if (authPlayer.getAuthState().getId() == AuthState.Logged.getId() || authPlayer.getAuthState().getId() == AuthState.LoggingIn.getId()) {
                 if (args.length != 1) {
                     player.sendMessage(this.usageMessage);
                     return false;

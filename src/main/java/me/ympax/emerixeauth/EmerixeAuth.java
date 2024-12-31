@@ -34,7 +34,7 @@ public class EmerixeAuth extends JavaPlugin {
     instance = null;
 
     this.authPlayers.forEach(authPlayer -> {
-      if (authPlayer.getAuthState() == AuthState.Registering) {
+      if (authPlayer.getAuthState().getId() == AuthState.Registering.getId()) {
         authPlayer.getPlayerConfig().getConfigFile().delete();
       } else {
         authPlayer.getPlayerConfig().save();

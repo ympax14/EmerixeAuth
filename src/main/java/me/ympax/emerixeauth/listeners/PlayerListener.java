@@ -24,11 +24,13 @@ public class PlayerListener implements Listener {
         CraftPlayer player = (CraftPlayer) event.getPlayer();
         AuthPlayer authPlayer = new AuthPlayer(player);
 
-        if (authPlayer.getAuthState() == AuthState.LoggingIn) {
+        if (authPlayer.getAuthState().getId() == AuthState.LoggingIn.getId()) {
             player.sendMessage(logInMessage);
-        } else if (authPlayer.getAuthState() == AuthState.Registering) {
+        } else if (authPlayer.getAuthState().getId() == AuthState.Registering.getId()) {
             player.sendMessage(registerMessage);
         }
+
+        event.setJoinMessage(null);
 
         EmerixeAuth.getInstance().getAuthPlayers().add(authPlayer);
     }
@@ -39,11 +41,13 @@ public class PlayerListener implements Listener {
 
         AuthPlayer authPlayer = EmerixeAuth.getInstance().getAuthPlayer(player);
 
-        if (authPlayer.getAuthState() == AuthState.Registering) {
+        if (authPlayer.getAuthState().getId() == AuthState.Registering.getId()) {
             authPlayer.getPlayerConfig().getConfigFile().delete();
         } else {
             authPlayer.getPlayerConfig().save();
         }
+
+        event.setQuitMessage(null);
 
         EmerixeAuth.getInstance().getAuthPlayers().remove(authPlayer);
     }
@@ -54,10 +58,12 @@ public class PlayerListener implements Listener {
         AuthPlayer authPlayer = EmerixeAuth.getInstance().getAuthPlayer(player);
 
         String command = event.getMessage().split(" ")[0];
+
+        EmerixeAuth.getInstance().getLogger().info(authPlayer.getAuthState() + " " + command + " " + (authPlayer.getAuthState().getId() == AuthState.Registering.getId() && !command.equals("/register")));
         
-        if (authPlayer.getAuthState() != AuthState.Logged
-        || (authPlayer.getAuthState() == AuthState.LoggingIn && command != "/login")
-        || (authPlayer.getAuthState() == AuthState.Registering && command != "/register")) {
+        if (authPlayer.getAuthState().getId() == AuthState.Logged.getId()
+        || (authPlayer.getAuthState().getId() == AuthState.LoggingIn.getId() && !command.equals("/login"))
+        || (authPlayer.getAuthState().getId() == AuthState.Registering.getId() && !command.equals("/register"))) {
             event.setCancelled(true);
             player.sendMessage(ChatColor.RED + "Toutes les commandes sont désactivés pour le moment.");
         }

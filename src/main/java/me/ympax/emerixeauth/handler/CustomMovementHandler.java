@@ -19,7 +19,7 @@ public class CustomMovementHandler implements MovementHandler {
 
         if (authPlayer == null) return;
 
-        if (authPlayer.getAuthState() == AuthState.LoggingIn || authPlayer.getAuthState() == AuthState.Registering) {
+        if (authPlayer.getAuthState().getId() == AuthState.LoggingIn.getId() || authPlayer.getAuthState().getId() == AuthState.Registering.getId()) {
             if (to.getX() != from.getX() || to.getZ() != from.getZ() || to.getY() != from.getY()) {
                 player.teleport(from);
                 ((CraftPlayer)player).getHandle().playerConnection.checkMovement = false;
@@ -34,7 +34,7 @@ public class CustomMovementHandler implements MovementHandler {
 
         if (authPlayer == null) return;
 
-        if (authPlayer.getAuthState() == AuthState.LoggingIn || authPlayer.getAuthState() == AuthState.Registering) {
+        if (authPlayer.getAuthState().getId() == AuthState.LoggingIn.getId() || authPlayer.getAuthState().getId() == AuthState.Registering.getId()) {
             if (to.getPitch() != from.getPitch() || to.getYaw() != from.getYaw()) {
                 player.teleport(from);
                 ((CraftPlayer)player).getHandle().playerConnection.checkMovement = false;
