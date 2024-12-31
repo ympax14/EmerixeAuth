@@ -39,12 +39,13 @@ public class AuthPlayer {
                 playerConfig = new PlayerConfig(player.getUniqueId().toString(), player.isPremium());
 
                 if (playerConfig.gotCreated()) {
-                    Bukkit.getScheduler().runTaskLater(EmerixeAuth.getInstance(), new Runnable() {
+                    /*Bukkit.getScheduler().runTaskLater(EmerixeAuth.getInstance(), new Runnable() {
                         @Override
                         public void run() {
                             player.openInventory(loginMethodInventory());
                         }
-                    }, 1L);
+                    }, 1L);*/
+                    // TODO: Faire un système de choix de méthode de connexion pour les Premiums.
 
                     authState = AuthState.Logged;
                 } else authState = playerConfig.getString("premium") == "true" ? AuthState.Logged : AuthState.LoggingIn;
